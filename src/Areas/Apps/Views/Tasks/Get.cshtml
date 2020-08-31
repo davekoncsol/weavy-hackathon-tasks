@@ -1,0 +1,161 @@
+﻿@model Tasks
+
+
+<div class="container-fluid my-4" id="taskApp@(Model.Id)">
+    @* App *@
+    <div id="app">
+        <tasks-form></tasks-form>
+        <tasks-list :collection="taskListState.items"></tasks-list>
+        <tasks-toggle :collection="taskListState.items"></tasks-toggle>
+        <tasks-modal></tasks-modal>
+        <tasks-comments></tasks-comments>
+    </div>
+
+    @* Tasks Form *@
+    <template id="tasks-form">
+        <div class="tasks-form">
+            <button type="button" class="btn btn-icon" @@click="addTask">@Svg.Icon("plus")</button>
+            <input type="text" placeholder="Add task" class="form-control" autocomplete="off" v-model="newTask" @@keyup.enter="addTask" autofocus />
+        </div>
+    </template>
+
+    @* Task List *@
+    <template id="tasks-list">
+        <draggable class="task-list" :list="collection" @@end="onDrop">
+            <task-item v-for="item in collection" :model="item" :hide="hideCompleted" :key="item.id"></task-item>
+        </draggable>
+    </template>
+
+    @* Task Item *@
+    <template id="task-item">
+        <div class="task-item" v-if="!shouldHide" :class="{'editing': isEditing, 'task-done': isDone, 'p3': priority == 'high', 'p2': priority == 'normal', 'p1': priority == 'low', 'p0': priority == 'none'}" @@dblclick="edit">
+
+            <button type="button" class="btn btn-icon task-check" @@click="toggleCompleted" v-if="model.completed">@Svg.Icon("check-circle")</button>
+            <button type="button" class="btn btn-icon task-check" @@click="toggleCompleted" v-if="!model.completed">@Svg.Icon("circle-outline")</button>
+
+            <div class="task-text flex-fill" v-if="isEditing">
+                <input type="text" v-model="tempText" placeholder="Add task" @@keyup.enter="save" @@blur="save" @@keyup.esc="cancelEdit">
+            </div>
+
+            <div class="task-text" v-if="!isEditing">
+                <span class="task-name">{{ model.name }}</span><span class="task-description" v-if="model.description">{{ model.description }}</span>
+            </div>
+
+            <div class="task-icons" v-if="!isEditing">
+                <button type="button" class="btn btn-icon" v-if="model.due_date" :class="{'btn-warning': isDue}" :title="model.due_date">@Svg.Icon("clock", size: 18)</button>
+                <button type="button" class="btn btn-icon task-comments" v-if="hasComments" @@click="showComments" title="Comments">
+                    @Svg.Icon("comment", size: 18)
+                </button>
+                @*<button type="button" class="btn btn-icon task-star on" v-if="model.is_starred" @@click="toggleStarred" data-toggle="star" data-entity="content" :data-id="model.id">@Svg.Icon("star", color: "yellow")</button>*@
+                <a :href="'/people/' + model.assigned_to" class="btn btn-icon" v-if="model.assigned_to && model.assigned_to_user"><img :title="'Assigned to ' + model.assigned_to_user.username" class="img-18 avatar" :src="'/people/' + model.assigned_to + '/avatar-32.jpg'" /></a>
+
+                <!-- Task actions -->
+                <div class="dropdown">
+                    <button type="button" class="btn btn-icon dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="Toggle Dropdown">
+                        @Svg.Icon("dots-vertical")
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" href="#" @@click="editTaskDetails">@Svg.Icon("pencil")<span>Task details</span></a>
+                        <a class="dropdown-item" href="#" @@click="showComments">@Svg.Icon("comment")<span>Comments</span></a>
+
+                        @*
+                            <button @@click="toggleStarred" :class="'dropdown-item toggle-dropdown ' + (model.is_starred ? 'on' : '')" data-entity="content" :data-id="model.id" data-toggle="star" type="button">
+                                @Svg.Icon("star", color: "yellow", htmlAttributes: new { @class = "d-block" }) <span class="d-block">Star</span>
+                                @Svg.Icon("star-off", color: "yellow", htmlAttributes: new { @class = "d-none" }) <span class="d-none">Unstar</span>
+                            </button>
+                        *@
+
+                        <div class="dropdown-divider"></div>
+                        <h6 class="dropdown-header">Priority</h6>
+                        <a class="dropdown-item" href="#" @@click="savePriority('none')" :class="{'selected': model.priority == 'none'}">@Svg.Icon("check")<span>None</span></a>
+                        <a class="dropdown-item" href="#" @@click="savePriority('low')" :class="{'selected': model.priority == 'low'}">@Svg.Icon("check")<span>Low</span></a>
+                        <a class="dropdown-item" href="#" @@click="savePriority('normal')" :class="{'selected': model.priority == 'normal'}">@Svg.Icon("check")<span>Normal</span></a>
+                        <a class="dropdown-item" href="#" @@click="savePriority('high')" :class="{'selected': model.priority == 'high'}">@Svg.Icon("check")<span>High</span></a>
+                        <div v-if="hasPermission('delete')" class="dropdown-divider"></div>
+                        <button v-if="hasPermission('delete')" @@click="deleteItem" type="button" class="dropdown-item">@Svg.Icon("delete", color: "danger") Delete task</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </template>
+
+    @* Task Toggle *@
+    <template id="tasks-toggle">
+        <div class="task-toggle" v-if="visible">
+            <button type="button" class="btn btn-link text-muted" @@click="toggleCompleted">{{(hideCompleted ? 'Show' : 'Hide')}} completed {{(hideCompleted ? '(' + completedTasks + ')' : '')}}</button>
+        </div>
+    </template>
+
+    @* Task Modal *@
+    <template id="tasks-modal">
+        <div class="modal" id="task-details-modal" role="dialog" aria-labelledby="task-details-modal" aria-hidden="true">
+
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header border-0 pb-0">
+                        <h5 class="modal-title">Task details</h5>
+                        <button type="button" class="btn btn-icon" data-dismiss="modal" aria-label="Close">@Svg.Icon("close")</button>
+                    </div>
+                    <div class="modal-body" v-if="model">
+                        <div class="form-group">
+                            <label>Task</label>
+                            <input type="text" class="form-control" v-model="tmpName">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Assigned to</label>
+                            <select class="form-control" v-model="tmpAssignedTo" data-role="user-picker" data-placeholder="Start typing to search for a user">
+                                <option v-for="opt in options" v-bind:value="opt.value">{{opt.text}}</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Due date</label>
+                            <input type="date" class="form-control" v-model="tmpDueDate">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Note</label>
+                            <textarea class="form-control" v-model="tmpDescription"></textarea>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer border-0">
+                        <button type="button" class="btn btn-primary" @@click="update">Update</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    @* Task Comments *@
+    <template id="tasks-comments">
+        <div class="modal" id="task-comments-modal" tabindex="-1" role="dialog" aria-labelledby="task-details-modal" aria-hidden="true">
+
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header border-0 pb-0">
+                        <h5 class="modal-title">Task comments</h5>
+                        <button type="button" class="btn btn-icon" data-dismiss="modal" aria-label="Close">@Svg.Icon("close")</button>
+                    </div>
+                    @Svg.Spinner()
+                    <div class="modal-body"></div>
+                </div>
+            </div>
+        </div>
+    </template>
+</div>
+
+<script>
+    $(function () {
+        wvy.taskapp.init(@Model.Id, '@Model.AppGuid', @Html.Raw(Model.Items.SerializeToJson()));
+    });
+</script>
+
+@section footer {
+    @{
+        Html.RenderPartial("_FeedbackModal");
+        Html.RenderPartial("_EditCommentModal");
+    }
+}

@@ -1,0 +1,152 @@
+﻿
+/****************************
+ | VARIABLES
+ ***************************/
+@import '../../../Styles/variables';
+@import "../../../Styles/vendor/bootstrap/functions";
+@import "../../../Styles/vendor/bootstrap/variables";
+@import "../../../Styles/vendor/bootstrap/mixins";
+
+$label_important_color: $red;
+$label_normal_color: $gray-500;
+$label_medium_color: $yellow;
+
+[v-cloak] {
+    display: none
+}
+
+.tasks-form {
+    align-items: center;
+    border: 1px solid $border-color;
+    border-radius: $input-border-radius;
+    display: flex;
+    padding: .25rem .5rem;
+    margin-bottom: .5rem;
+
+    .form-control {
+        height: auto;
+        padding: .5rem .5rem .5rem .25rem;
+        border: none;
+        outline: 0;
+        box-shadow: none;
+        background-color: white;
+
+        &:focus {
+            outline: 0;
+            box-shadow: none;
+        }
+
+        &::placeholder {
+            font-size: $font-size-base;
+        }
+    }
+}
+
+.task-list {
+
+    .task-item {
+        padding: .5rem;
+        border: 1px solid $border-color;
+        display: flex;
+        align-items: center;
+
+        + .task-item {
+            border-top: none;
+        }
+
+        &:first-child {
+            border-top-left-radius: $input-border-radius;
+            border-top-right-radius: $input-border-radius;
+        }
+
+        &:last-child {
+            border-bottom: 1px solid $border-color;
+            border-bottom-left-radius: $input-border-radius;
+            border-bottom-right-radius: $input-border-radius;
+        }
+
+        &.task-done {
+            .task-text {
+                color: $text-muted;
+                text-decoration: line-through;
+            }
+        }
+
+        .task-check {
+            color: $icon-color;
+        }
+
+        &.p3 {
+            .task-check {
+                color: $danger;
+            }
+        }
+
+        &.p2 {
+            .task-check {
+                color: $info;
+            }
+        }
+
+        &.p1 {
+            .task-check {
+                color: $success;
+            }
+        }
+
+
+
+        .task-text {
+            flex: 1;
+            margin: 0 .25rem;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+
+            .task-description {
+                margin-left: .5ex;
+                color: $text-muted;
+            }
+        }
+
+        .task-icons {
+            display: flex;
+
+            .dropdown-item {
+                > svg.i-check {
+                    visibility: hidden;
+                }
+
+                &.selected {
+                    > svg.i-check {
+                        visibility: visible;
+                    }
+                }
+            }
+        }
+
+
+        &.editing {
+            background: $input-bg;
+
+            input {
+                border: none;
+                font-family: inherit;
+                outline: none;
+                font-size: 1em;
+                width: 100%;
+                background: transparent;
+                margin: 0;
+            }
+        }
+    }
+}
+
+.task-toggle {
+    margin-top: 1rem;
+    text-align: center;
+
+    .btn-link {
+        box-shadow: none !important;
+    }
+}

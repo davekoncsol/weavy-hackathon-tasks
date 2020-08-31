@@ -1,0 +1,32 @@
+﻿{
+  "name": "24onoff - POC",
+  "description": "In-app messaging and collaboration for 24onoff users with Weavy.",
+  "version": "0.1",
+    "icons": {
+        "16": "images/icon-16.png",
+        "48": "images/icon-48.png",
+        "128": "images/icon-128.png"
+    },
+    "permissions": [
+        "https://construction.24onoff.com/*",
+        "declarativeContent",
+        "webRequest",
+        "webRequestBlocking"
+    ],
+  "background": {
+    "scripts": [ "background.js" , "hot-loader.js"],
+    "persistent": true
+  },
+  "content_scripts": [
+    {
+
+        "matches": [
+            "https://construction.24onoff.com/*"
+        ],
+        "js": [ "jsrsasign-all-min.js", "weavy.bundle.js", "enabler.js" ],
+        "css": [ "enabler.css" ],
+        "run_at": "document_start"
+    }
+  ],
+  "manifest_version": 2
+}
