@@ -93,12 +93,6 @@
     <Reference Include="Dapper, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dapper.2.0.30\lib\net461\Dapper.dll</HintPath>
     </Reference>
-    <Reference Include="dbup-core, Version=4.4.0.0, Culture=neutral, PublicKeyToken=4b419c53bdfd4cbf, processorArchitecture=MSIL">
-      <HintPath>..\packages\dbup-core.4.4.0\lib\net45\dbup-core.dll</HintPath>
-    </Reference>
-    <Reference Include="dbup-sqlserver, Version=4.4.0.0, Culture=neutral, PublicKeyToken=4b419c53bdfd4cbf, processorArchitecture=MSIL">
-      <HintPath>..\packages\dbup-sqlserver.4.4.0\lib\net46\dbup-sqlserver.dll</HintPath>
-    </Reference>
     <Reference Include="DocumentFormat.OpenXml, Version=2.10.1.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
       <HintPath>..\packages\DocumentFormat.OpenXml.2.10.1\lib\net46\DocumentFormat.OpenXml.dll</HintPath>
     </Reference>
@@ -177,9 +171,6 @@
     <Reference Include="Microsoft.Azure.NotificationHubs, Version=3.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Azure.NotificationHubs.3.3.0\lib\netstandard2.0\Microsoft.Azure.NotificationHubs.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Azure.Services.AppAuthentication, Version=1.3.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Azure.Services.AppAuthentication.1.3.1\lib\net472\Microsoft.Azure.Services.AppAuthentication.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.1.1.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
@@ -204,9 +195,6 @@
     </Reference>
     <Reference Include="Microsoft.Extensions.Primitives, Version=3.1.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.Primitives.3.1.3\lib\netstandard2.0\Microsoft.Extensions.Primitives.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.IdentityModel.Clients.ActiveDirectory, Version=4.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.IdentityModel.Clients.ActiveDirectory.4.3.0\lib\net45\Microsoft.IdentityModel.Clients.ActiveDirectory.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.IdentityModel.JsonWebTokens, Version=5.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.IdentityModel.JsonWebTokens.5.6.0\lib\net461\Microsoft.IdentityModel.JsonWebTokens.dll</HintPath>
@@ -363,17 +351,17 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="Weavy.Bundler, Version=7.3.1.0, Culture=neutral, PublicKeyToken=null">
+    <Reference Include="Weavy.Bundler, Version=7.4.1.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\lib\Weavy.Bundler.dll</HintPath>
     </Reference>
-    <Reference Include="Weavy.Core, Version=7.3.1.0, Culture=neutral, PublicKeyToken=null">
+    <Reference Include="Weavy.Core, Version=7.4.1.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\lib\Weavy.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Weavy.Web, Version=7.3.1.0, Culture=neutral, PublicKeyToken=null">
+    <Reference Include="Weavy.Web, Version=7.4.1.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\lib\Weavy.Web.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
-    <Reference Include="wvy, Version=7.3.1.0, Culture=neutral, PublicKeyToken=null">
+    <Reference Include="wvy, Version=7.4.1.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\lib\wvy.exe</HintPath>
     </Reference>
   </ItemGroup>
@@ -381,11 +369,6 @@
     <Content Include="Areas\Apps\Scripts\apps.bundle" />
     <Content Include="Areas\Apps\Scripts\messenger.bundle" />
     <Content Include="Areas\Apps\Scripts\messenger.js" />
-    <Content Include="Areas\Apps\Scripts\tasks.js" />
-    <Content Include="Areas\Apps\Scripts\vendor\jsrsasign-all-min.js" />
-    <Content Include="Areas\Apps\Scripts\vendor\sortable.min.js" />
-    <Content Include="Areas\Apps\Scripts\vendor\vue.min.js" />
-    <Content Include="Areas\Apps\Scripts\vendor\vuedraggable.min.js" />
     <Content Include="Areas\Apps\Styles\_emojionearea.scss" />
     <Content Include="Areas\Apps\Styles\_messenger_modal.scss" />
     <Content Include="Areas\Apps\Styles\apps.scss" />
@@ -4313,15 +4296,10 @@
     <Compile Include="Areas\Apps\Controllers\NotificationsController.cs" />
     <Compile Include="Areas\Apps\Controllers\PostsController.cs" />
     <Compile Include="Areas\Apps\Controllers\SearchController.cs" />
-    <Compile Include="Areas\Apps\Controllers\TaskItemController.cs" />
-    <Compile Include="Areas\Apps\Controllers\TasksController.cs" />
     <Compile Include="Areas\Apps\Models\CloudLink.cs" />
     <Compile Include="Areas\Apps\Models\Link.cs" />
     <Compile Include="Areas\Apps\Models\Messenger.cs" />
     <Compile Include="Areas\Apps\Models\Notifications.cs" />
-    <Compile Include="Areas\Apps\Models\TaskItem.cs" />
-    <Compile Include="Areas\Apps\Models\TaskPriority.cs" />
-    <Compile Include="Areas\Apps\Models\Tasks.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -4330,9 +4308,6 @@
     <Compile Include="Utils\HtmlUtils.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Apps\Styles\_tasks.scss" />
-    <Content Include="Areas\Apps\Views\TaskItem\_TaskComments.cshtml" />
-    <Content Include="Areas\Apps\Views\Tasks\Get.cshtml" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -4355,7 +4330,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>50412</DevelopmentServerPort>
+          <DevelopmentServerPort>56026</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>https://localhost:44323/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

@@ -1,5 +1,18 @@
 # Changelog for Weavy
 
+## 7.4.1 (2020-09-16)
+
+* Fixed issue with new users not being created correctly when using a jwt token.
+
+## 7.4.0 (2020-09-16)
+
+* Added support for updating user avatar and name from jwt token.
+
+## 7.3.2 (2020-09-02)
+
+* Fixed issue with email notifications not being sent.
+* Fixed unauthorized bug when jwt token specified both client_id and iss claim.
+
 ## 7.3.1 (2020-08-25)
 
 * Fixed incorrect setting for CustomErrors in web.config.
