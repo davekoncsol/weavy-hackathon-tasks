@@ -369,6 +369,11 @@
     <Content Include="Areas\Apps\Scripts\apps.bundle" />
     <Content Include="Areas\Apps\Scripts\messenger.bundle" />
     <Content Include="Areas\Apps\Scripts\messenger.js" />
+    <Content Include="Areas\Apps\Scripts\tasks.js" />
+    <Content Include="Areas\Apps\Scripts\vendor\jsrsasign-all-min.js" />
+    <Content Include="Areas\Apps\Scripts\vendor\sortable.min.js" />
+    <Content Include="Areas\Apps\Scripts\vendor\vue.min.js" />
+    <Content Include="Areas\Apps\Scripts\vendor\vuedraggable.min.js" />
     <Content Include="Areas\Apps\Styles\_emojionearea.scss" />
     <Content Include="Areas\Apps\Styles\_messenger_modal.scss" />
     <Content Include="Areas\Apps\Styles\apps.scss" />
@@ -4296,10 +4301,15 @@
     <Compile Include="Areas\Apps\Controllers\NotificationsController.cs" />
     <Compile Include="Areas\Apps\Controllers\PostsController.cs" />
     <Compile Include="Areas\Apps\Controllers\SearchController.cs" />
+    <Compile Include="Areas\Apps\Controllers\TaskItemController.cs" />
+    <Compile Include="Areas\Apps\Controllers\TasksController.cs" />
     <Compile Include="Areas\Apps\Models\CloudLink.cs" />
     <Compile Include="Areas\Apps\Models\Link.cs" />
     <Compile Include="Areas\Apps\Models\Messenger.cs" />
     <Compile Include="Areas\Apps\Models\Notifications.cs" />
+    <Compile Include="Areas\Apps\Models\TaskItem.cs" />
+    <Compile Include="Areas\Apps\Models\TaskPriority.cs" />
+    <Compile Include="Areas\Apps\Models\Tasks.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -4308,6 +4318,9 @@
     <Compile Include="Utils\HtmlUtils.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Apps\Styles\_tasks.scss" />
+    <Content Include="Areas\Apps\Views\TaskItem\_TaskComments.cshtml" />
+    <Content Include="Areas\Apps\Views\Tasks\Get.cshtml" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
