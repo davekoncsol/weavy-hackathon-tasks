@@ -4,6 +4,7 @@
 /src/js/
 /src/settings.config
 /src/Properties/BuildInfo.cs
+/src/extension/
 
 # Dist folder
 /dist/
